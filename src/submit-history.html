@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit history</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<nav class="container p-3 bg-dark text-white text-left my-2">
+    <a href="index.html" id="form-link">Form</a>
+    <a href="submit-history.html" id="history-link" class="mx-3">History</a>
+</nav>
+
+<main class="submit-history">
+    <!-- The p tag with class card-class-name has an id equal to the class. -->
+    <div class="d-flex justify-content-center">
+        <label class="fw-bold" for="card-first-name">First Name</label>
+        <p id="card-first-name" class="card-first-name"></p>
+        <label class="fw-bold" for="card-last-name">Last Name</label>
+        <p id="card-last-name" class="card-last-name"></p>
+        <p class="card-email"></p>
+        <p class="card-phone"></p>
+        <p class="card-company"></p>
+        <p class="card-address"></p>
+        <button class="btn btn-danger d-block mx-auto ms-3 me-3">Delete</button>
+    </div>
+</main>
+</body>
+</html>
