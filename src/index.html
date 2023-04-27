@@ -13,25 +13,26 @@ Purpose
 	• This is a training project for the use of HTML und JavaScript.
 	• Additionally I use Bootstrap 5.
 	• The initial tasks were developed by Hyperskill.
-	• Sadly the description and demands by Hyperskill are with gaps in inconsonsistent this time.
+	• The description and demands by Hyperskill contain gaps and inconsistencies. So I have to fill them.
 	• see https://hyperskill.org/projects/239/stages/1200/implement#comment
 
 Description of main page
 	• name: index.html
 	• The user can enter data of a person.
-	• The correctness and Vollständigkeit of person data will not be checked.
-	• The user can save a person data set using the "Submit form" button. This way different person data sets can be created.
+	• The correctness and completeness of person data will not be validated.
+	• The user can save a person data set using the "Submit form" button.
+	  This way different person data sets can be created.
 
 Draft data of person
 	• Once a user has entered data into a field this change will be saved temporarily to local storage.
 		○ We don't wait until the input field lost focus.
-		○ This is draft data.
 	• After reloading the page, we retrieve the draft data from the local storage and restore all input fields.
 		○ If there is no draft data, we leave the fields empty.
 
 Saved person data
+-----------------
 Functional description
-	• If the user clicks on the Submit Button the data will be saved permanently.
+	• If the user clicks on the Submit button the data will be saved permanently.
 	• After the saving the view will be without data until a user enters new data.
 Technical description
 	• The submit button doesn't send the forms content.
@@ -40,8 +41,10 @@ Technical description
 		○ We can use the code which is called by the reset button.
 
 Show historic person data
+-------------------------
 Functional description
-If the history page is loaded by the user the person dates will be shown to him. So he can see all existent person dates.
+    - If the history page is loaded by the user the person dates will be shown to him.
+    - So he can see all existent person dates.
 Technical description
 	• If the history page is loaded, we load all persons from persons array in local store
 
