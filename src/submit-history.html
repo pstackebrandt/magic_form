@@ -37,7 +37,7 @@ Technical description
         function displaySavedPersons() {
             const persons = JSON.parse(localStorage.getItem("persons")) || [];
             const personsView = document.getElementById("persons-view");
-            persons.forEach((person, _) => {
+            persons.forEach((person) => {
                 const personCard = document.createElement("div");
                 personCard.classList.add("card", "mb-3");
 
@@ -50,6 +50,7 @@ Technical description
 
                 const personDetails = document.createElement("p");
                 personDetails.classList.add("card-text");
+
                 personDetails.innerHTML = `
                 Email: ${person.email}<br>
                 Phone: ${person.phone}<br>
@@ -57,45 +58,40 @@ Technical description
                 Address: ${person.address}
             `;
 
+                // Add delete button
+                const deleteButton = document.createElement("button");
+                deleteButton.classList.add("btn", "btn-danger", "mt-3", "mb-3");
+                deleteButton.textContent = "Delete";
+                deleteButton.addEventListener("click", deletePerson);
+
                 personCardBody.appendChild(personName);
                 personCardBody.appendChild(personDetails);
+                personCardBody.appendChild(deleteButton);
                 personCard.appendChild(personCardBody);
                 personsView.appendChild(personCard);
             });
         }
+
+        function deletePerson(event) {
+            const personsView = document.getElementById("persons-view");
+
+            const callerButton = event.target;
+
+            // Get the parent card element of the clicked button
+            const personCardToRemove = callerButton.closest(".card");
+
+            // Get the index of the card to delete
+            const index = Array.from(personsView.children).indexOf(personCardToRemove);
+
+            // Remove person from local storage
+            const persons = JSON.parse(localStorage.getItem("persons")) || [];
+            persons.splice(index, 1);
+            localStorage.setItem("persons", JSON.stringify(persons));
+
+            // Remove the person card from the DOM
+            personsView.removeChild(personCardToRemove);
+        }
     </script>
-    <!--&lt;!&ndash; Submit history card. Data of a person . This is an example or a template.
-    I need to show 1 person entry for each submitted person.
-     If we have no submitted person, we don't show any entry. &ndash;&gt;
-    <div class="person submit-history-card d-flex flex-column align-items-start">
-        <div>
-            <label class="fw-bold" for="card-first-name">First Name</label>
-            <p id="card-first-name" class="card-first-name">Lorem</p>
-        </div>
-        <div>
-            <label class="fw-bold" for="card-last-name">Last Name</label>
-            <p id="card-last-name" class="card-last-name">Ipsum</p>
-        </div>
-        <div>
-            <label class="fw-bold" for="card-email">Email</label>
-            <p id="card-email" class="card-email">lorem@ipsum.com</p>
-        </div>
-        <div>
-            <label class="fw-bold" for="card-phone">Phone</label>
-            <p id="card-phone" class="card-phone">+1 (234) 567-8900</p>
-        </div>
-        <div>
-            <label class="fw-bold" for="card-company">Company</label>
-            <p id="card-company" class="card-company">Lorem Corp</p>
-        </div>
-        <div>
-            <label class="fw-bold" for="card-address">Address</label>
-            <p id="card-address" class="card-address">123 Lorem St, Ipsum City, 45678</p>
-        </div>
-        <div class="w-100 d-flex justify-content-center mt-3 mb-3">
-            <button class="btn btn-danger">Delete</button>
-        </div>
-    </div>-->
 </main>
 </body>
 
