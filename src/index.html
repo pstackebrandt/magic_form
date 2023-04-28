@@ -34,7 +34,8 @@ Saved person data
 Functional description
 	• If the user clicks on the Submit button the data will be saved permanently.
 	• After the saving the view will be without data until a user enters new data.
-Technical description
+Technical details
+    . The person will be added to a list with persons. We can save one person after the other.
 	• The submit button doesn't send the forms content.
 	• It starts the saving to local store.
 	• After saving to local store, the current person draft data will be removed from the store and from the page.
@@ -57,17 +58,17 @@ Technical description
 </nav>
 <form id="person-form" class=" container">
     <label class="fw-bold" for="first-name">First name</label><br>
-    <input name="first-name" id="first-name" type="text" oninput="saveChange('first-name')"/><br><br>
+    <input name="first-name" id="first-name" type="text" oninput="saveTemporaryPersonChange('first-name')"/><br><br>
     <label class="fw-bold" for="last-name">Last name</label><br>
-    <input name="last-name" id="last-name" type="text" oninput="saveChange('last-name')"/><br><br>
+    <input name="last-name" id="last-name" type="text" oninput="saveTemporaryPersonChange('last-name')"/><br><br>
     <label class="fw-bold" for="email">Email</label><br>
-    <input name="email" id="email" type="email" oninput="saveChange('email')"/><br><br>
+    <input name="email" id="email" type="email" oninput="saveTemporaryPersonChange('email')"/><br><br>
     <label class="fw-bold" for="phone">Phone</label><br>
-    <input name="phone" id="phone" type="tel" oninput="saveChange('phone')"/><br><br>
+    <input name="phone" id="phone" type="tel" oninput="saveTemporaryPersonChange('phone')"/><br><br>
     <label class="fw-bold" for="company">Company</label><br>
-    <input name="company" id="company" type="text" oninput="saveChange('company')"/><br><br>
+    <input name="company" id="company" type="text" oninput="saveTemporaryPersonChange('company')"/><br><br>
     <label class="fw-bold" for="address">Address</label><br>
-    <input class="container-sm" name="address" id="address" type="text" oninput="saveChange('address')"/><br><br>
+    <input class="container-sm" name="address" id="address" type="text" oninput="saveTemporaryPersonChange('address')"/><br><br>
     <button class="" name="reset-button" id="reset-button" type="button" onclick="resetForm()">Reset form</button>
     <button class="" name="submit-button" id="submit-button" type="button" onclick="savePerson()">Submit form</button>
 </form>
@@ -99,8 +100,11 @@ Technical description
         restoreElementValue("address");
     }
 
-    function saveChange(changedElementId) {
-        console.trace("saveChange() changedElementId: " + changedElementId)
+    /** Save the changed part of a temporary person description.
+     * Save to local storage.
+     * changedElementId: ID of the element which value was changed. */
+    function saveTemporaryPersonChange(changedElementId) {
+        console.trace("saveTemporaryChange() changedElementId: " + changedElementId)
         const elementValue = document.getElementById(changedElementId).value;
         localStorage.setItem(changedElementId, elementValue);
     }
@@ -112,8 +116,14 @@ Technical description
         console.trace("local storage was cleared.")
     }
 
-    /** Add the person form data to persons container of local storage. */
+    /** Save the person data to local storage and reset form. */
     function savePerson() {
+        savePersonPersistently();
+        resetForm();
+    }
+
+    /** Add the person form data to persons container of local storage. */
+    function savePersonPersistently() {
         const person = {
             "first-name": document.getElementById("first-name").value,
             "last-name": document.getElementById("last-name").value,
@@ -129,7 +139,7 @@ Technical description
             persons.push(person);
             localStorage.setItem("persons", JSON.stringify(persons));
         }
-        console.trace("person was saved to local storage.")
+        console.trace("Person " +  JSON.stringify(persons) + "was saved to local storage.")
     }
 </script>
 
