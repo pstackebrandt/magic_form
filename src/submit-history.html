@@ -12,7 +12,7 @@ Technical description
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Submit history</title>
+    <title>Person Data History</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -24,9 +24,49 @@ Technical description
 </nav>
 
 <main class="container main-content">
-    <!-- Submit history card. Data of a person . This is an example or a template.
+    <div id="persons-view" class="container">
+        <!-- The list of persons will be populated here -->
+    </div>
+
+    <script>
+        window.onload = displaySavedPersons;
+
+        /**
+         * Displays all persons from local storage
+         */
+        function displaySavedPersons() {
+            const persons = JSON.parse(localStorage.getItem("persons")) || [];
+            const personsView = document.getElementById("persons-view");
+            persons.forEach((person, _) => {
+                const personCard = document.createElement("div");
+                personCard.classList.add("card", "mb-3");
+
+                const personCardBody = document.createElement("div");
+                personCardBody.classList.add("card-body");
+
+                const personName = document.createElement("h5");
+                personName.classList.add("card-title");
+                personName.textContent = `${person['first-name']} ${person['last-name']}`;
+
+                const personDetails = document.createElement("p");
+                personDetails.classList.add("card-text");
+                personDetails.innerHTML = `
+                Email: ${person.email}<br>
+                Phone: ${person.phone}<br>
+                Company: ${person.company}<br>
+                Address: ${person.address}
+            `;
+
+                personCardBody.appendChild(personName);
+                personCardBody.appendChild(personDetails);
+                personCard.appendChild(personCardBody);
+                personsView.appendChild(personCard);
+            });
+        }
+    </script>
+    <!--&lt;!&ndash; Submit history card. Data of a person . This is an example or a template.
     I need to show 1 person entry for each submitted person.
-     If we have no submitted person, we don't show any entry. -->
+     If we have no submitted person, we don't show any entry. &ndash;&gt;
     <div class="person submit-history-card d-flex flex-column align-items-start">
         <div>
             <label class="fw-bold" for="card-first-name">First Name</label>
@@ -55,7 +95,7 @@ Technical description
         <div class="w-100 d-flex justify-content-center mt-3 mb-3">
             <button class="btn btn-danger">Delete</button>
         </div>
-    </div>
+    </div>-->
 </main>
 </body>
 

@@ -29,6 +29,12 @@ Draft data of person
 	• After reloading the page, we retrieve the draft data from the local storage and restore all input fields.
 		○ If there is no draft data, we leave the fields empty.
 
+Measurements to correct hyperscill tasks
+ - The task description is not complete. So I have to fill the gaps.
+ - The task description is not consistent. So I have to correct the inconsistencies.
+ - The naming by Hyperskill e.g. for ids is sometimes misleading.
+ -- I may use name attribute or css class names to set better names.
+
 Saved person data
 -----------------
 Functional description
@@ -56,7 +62,7 @@ Technical description
     <a href="index.html" id="form-link">Form</a>
     <a href="submit-history.html" id="history-link">History</a>
 </nav>
-<form id="person-form" class=" container">
+<form id="person-form"  name="person-creation-form" class=" container">
     <label class="fw-bold" for="first-name">First name</label><br>
     <input name="first-name" id="first-name" type="text" oninput="saveTemporaryPersonChange('first-name')"/><br><br>
     <label class="fw-bold" for="last-name">Last name</label><br>
@@ -111,9 +117,14 @@ Technical description
 
     /** Reset the form (visible part and stored data). */
     function resetForm() {
-        localStorage.clear();
+        localStorage.removeItem("first-name");
+        localStorage.removeItem("last-name");
+        localStorage.removeItem("email");
+        localStorage.removeItem("phone");
+        localStorage.removeItem("company");
+        localStorage.removeItem("address");
         reloadFormData();
-        console.trace("local storage was cleared.")
+        console.trace("temporary person data was cleared from local storage.")
     }
 
     /** Save the person data to local storage and reset form. */
@@ -134,12 +145,15 @@ Technical description
         };
         const persons = JSON.parse(localStorage.getItem("persons"));
         if (persons == null) {
-            localStorage.setItem("persons", JSON.stringify([person]));
+            const personString = JSON.stringify([person]);
+            localStorage.setItem("persons", personString);
+            console.trace("'persons' list not found in local storage.")
         } else {
             persons.push(person);
-            localStorage.setItem("persons", JSON.stringify(persons));
+            const personsString = JSON.stringify(persons);
+            localStorage.setItem("persons", personsString);
+            console.trace("'persons' list was created in local storage as " +  JSON.stringify(persons))
         }
-        console.trace("Person " +  JSON.stringify(persons) + "was saved to local storage.")
     }
 </script>
 
