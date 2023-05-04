@@ -29,7 +29,7 @@ Draft data of person
 	• After reloading the page, we retrieve the draft data from the local storage and restore all input fields.
 		○ If there is no draft data, we leave the fields empty.
 
-Measurements to correct hyperscill tasks
+Measurements to correct hyperskill tasks
  - The task description is not complete. So I have to fill the gaps.
  - The task description is not consistent. So I have to correct the inconsistencies.
  - The naming by Hyperskill e.g. for ids is sometimes misleading.
@@ -62,7 +62,7 @@ Technical description
     <a href="index.html" id="form-link">Form</a>
     <a href="submit-history.html" id="history-link">History</a>
 </nav>
-<form id="person-form"  name="person-creation-form" class=" container">
+<form id="person-form" name="person-creation-form" class=" container">
     <label class="fw-bold" for="first-name">First name</label><br>
     <input name="first-name" id="first-name" type="text" oninput="saveTemporaryPersonChange('first-name')"/><br><br>
     <label class="fw-bold" for="last-name">Last name</label><br>
@@ -152,7 +152,7 @@ Technical description
             persons.push(person);
             const personsString = JSON.stringify(persons);
             localStorage.setItem("persons", personsString);
-            console.trace("'persons' list was created in local storage as " +  JSON.stringify(persons))
+            console.trace("'persons' list was created in local storage as " + JSON.stringify(persons))
         }
     }
 </script>
