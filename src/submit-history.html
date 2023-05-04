@@ -7,8 +7,10 @@ Show historic person data
 Functional description
     - If the history page is loaded by the user the person dates will be shown to him.
     - So he can see all existent person dates.
+    - Each person card has a button to delete the person from the history. The person will
+        be deleted from the local store and the page.
 Technical description
-	• If the history page is loaded, we load all persons from persons array in local store -->
+	• If the history page is loaded, we load all persons from persons array which lies in local store -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,24 +41,36 @@ Technical description
             const personsView = document.getElementById("persons-view");
             persons.forEach((person) => {
                 const personCard = document.createElement("div");
-                personCard.classList.add("card", "mb-3");
+                personCard.classList.add("submit-history-card", "card", "mb-3");
 
                 const personCardBody = document.createElement("div");
                 personCardBody.classList.add("card-body");
 
-                const personName = document.createElement("h5");
-                personName.classList.add("card-title");
-                personName.textContent = `${person['first-name']} ${person['last-name']}`;
+                const createLabel = (label) => {
+                    const labelElement = document.createElement("p");
+                    labelElement.innerHTML = `<strong>${label}</strong>`;
+                    return labelElement;
+                };
 
-                const personDetails = document.createElement("p");
-                personDetails.classList.add("card-text");
+                const createValue = (value, cardName) => {
+                    const valueElement = document.createElement("p");
+                    valueElement.textContent = value;
+                    valueElement.classList.add(cardName);
+                    return valueElement;
+                };
 
-                personDetails.innerHTML = `
-                Email: ${person.email}<br>
-                Phone: ${person.phone}<br>
-                Company: ${person.company}<br>
-                Address: ${person.address}
-            `;
+                const firstNameLabel = createLabel("First Name");
+                const firstNameValue = createValue(person['first-name'], "card-first-name");
+                const lastNameLabel = createLabel("Last Name");
+                const lastNameValue = createValue(person['last-name'], "card-last-name");
+                const emailLabel = createLabel("Email");
+                const emailValue = createValue(person.email, "card-email");
+                const phoneLabel = createLabel("Phone");
+                const phoneValue = createValue(person.phone, "card-phone");
+                const companyLabel = createLabel("Company");
+                const companyValue = createValue(person.company, "card-company");
+                const addressLabel = createLabel("Address");
+                const addressValue = createValue(person.address, "card-address");
 
                 // Add delete button
                 const deleteButton = document.createElement("button");
@@ -64,8 +78,7 @@ Technical description
                 deleteButton.textContent = "Delete";
                 deleteButton.addEventListener("click", deletePerson);
 
-                personCardBody.appendChild(personName);
-                personCardBody.appendChild(personDetails);
+                [firstNameLabel, firstNameValue, lastNameLabel, lastNameValue, emailLabel, emailValue, phoneLabel, phoneValue, companyLabel, companyValue, addressLabel, addressValue].forEach(detail => personCardBody.appendChild(detail));
                 personCardBody.appendChild(deleteButton);
                 personCard.appendChild(personCardBody);
                 personsView.appendChild(personCard);
