@@ -9,6 +9,7 @@ Functional description
     - So he can see all existent person dates.
     - Each person card has a button to delete the person from the history. The person will
         be deleted from the local store and the page.
+
 Technical description
 	• If the history page is loaded, we load all persons from persons array which lies in local store -->
 <html lang="en">
@@ -74,7 +75,7 @@ Technical description
 
                 // Add delete button
                 const deleteButton = document.createElement("button");
-                deleteButton.classList.add("btn", "btn-danger", "mt-3", "mb-3");
+                deleteButton.classList.add("btn", "btn-danger", "mt-3", "mb-3", "delete-button");
                 deleteButton.textContent = "Delete";
                 deleteButton.addEventListener("click", deletePerson);
 
